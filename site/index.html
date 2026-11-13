@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layaway Jar — BCH BLAZE 2026 (Media Track)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Top of Page Banner per YOUTUBE.md §2 -->
+    <header class="top-banner">
+      <div class="banner-track">BCH BLAZE 2026 · MEDIA TRACK · CHIPNET DEMO</div>
+      <h1 class="banner-title">Layaway, without the middleman.</h1>
+      <p class="banner-desc">
+        Save toward a fixed target. The shop gets exactly the target, or you get your money back. Two exits, no third.
+      </p>
+
+      <div class="banner-ember-box">
+        <div class="ember-label">EMBER2026 (Community Choice) Address:</div>
+        <div class="ember-row">
+          <span class="ember-address" id="emberAddr">bitcoincash:qq0veqaprdwlkpdj3exnacxe454eu3zdluphtvjwax</span>
+          <button type="button" class="copy-btn" id="copyBtn" onclick="copyEmberAddress()">Copy</button>
+        </div>
+      </div>
+
+      <div class="banner-meta">
+        <div>XO template: <span class="template-id">bc076569ef069e2141b74f21382d50c7ba552ef8182d0076b4ded899c0089a6e</span></div>
+        <div class="chipnet-tag">All transactions on Chipnet</div>
+      </div>
+    </header>
+
+    <!-- Video Embed with Poster and Captions -->
+    <section class="video-section">
+      <div class="video-container">
+        <video controls poster="thumbnail.png" preload="metadata" class="video-player">
+          <source src="layaway_jar_1080p.mp4" type="video/mp4">
+          <track kind="captions" src="captions.srt" srclang="en" label="English" default>
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+    </section>
+
+    <!-- What it does -->
+    <section id="overview">
+      <h2>What It Does</h2>
+      <p>
+        The Layaway Jar is a single-saver covenant built on Bitcoin Cash as an XO template.
+        The saver commits satoshis toward a fixed merchant destination and a fixed savings target, with the covenant's authoritative balance tracked directly by its UTXO satoshi value.
+        Once the target is satisfied, funds can be released to the merchant with any excess returned to the saver; alternatively, the saver can unconditionally refund the balance at any time with zero middleman or admin keys.
+      </p>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Action</th>
+              <th>Covenant Rule</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>createJar</code></td>
+              <td>Creates the P2SH32 jar output with an initial balance, fixed merchant script, and target amount.</td>
+            </tr>
+            <tr>
+              <td><code>deposit</code></td>
+              <td>Output 0 must have the <strong>same covenant bytecode</strong> and a <strong>strictly larger value</strong>. Target, merchant, saver, and jar key stay fixed.</td>
+            </tr>
+            <tr>
+              <td><code>release</code></td>
+              <td>Output 0 must pay the merchant script <strong>exactly the target</strong>, and the jar input must already hold <strong>at least the target</strong>. Extra value is returned to the saver by output 1.</td>
+            </tr>
+            <tr>
+              <td><code>refund</code></td>
+              <td>Output 0 must pay the saver script, and at most 1,000 satoshis may be taken as network transaction fee.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Every spending path requires a valid Schnorr signature from the saver's key. There is no third exit and no admin backdoor.
+      </p>
+    </section>
+
+    <!-- Proof Section -->
+    <section id="proof">
+      <h2>Proof &amp; On-Chain Verification</h2>
+      <p>
+        All transactions below were executed and broadcast on Bitcoin Cash <strong>Chipnet</strong> (testnet). No mainnet funds were touched.
+      </p>
+
+      <div class="proof-group">
+        <div class="proof-title">Jar A: Deposit &amp; Release Flow (Target: 10,000 sats)</div>
+        <ul class="tx-list">
+          <li class="tx-item">
+            <span class="tx-action">createJar:</span>
+            <a class="tx-link" href="https://chipnet.imaginary.cash/tx/b2d004b467c782cc48b9a8c196ea6cc69b4d6813f7975716ddceb7376461d743" target="_blank" rel="noopener noreferrer">b2d004b467c782cc48b9a8c196ea6cc69b4d6813f7975716ddceb7376461d743</a>
+            <span class="tx-detail">(Initial jar funding: 2,000 sats)</span>
+          </li>
+          <li class="tx-item">
+            <span class="tx-action">deposit:</span>
+            <a class="tx-link" href="https://chipnet.imaginary.cash/tx/b19c806701845c655394a005072a998da3103e7afe867f9b586286eea082a641" target="_blank" rel="noopener noreferrer">b19c806701845c655394a005072a998da3103e7afe867f9b586286eea082a641</a>
+            <span class="tx-detail">(+11,000 sats → 13,000 sat balance, same bytecode)</span>
+          </li>
+          <li class="tx-item">
+            <span class="tx-action">release:</span>
+            <a class="tx-link" href="https://chipnet.imaginary.cash/tx/9568efd8e77c270341406d26c59db33a1d6db694f13d5f0e1452667bc8a2b4d1" target="_blank" rel="noopener noreferrer">9568efd8e77c270341406d26c59db33a1d6db694f13d5f0e1452667bc8a2b4d1</a>
+            <span class="tx-detail">(10,000 sats to merchant, 1,000 sats back to saver, 2,000 sat fee)</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="proof-group">
+        <div class="proof-title">Jar B: Refund Flow (Unconditional Exit)</div>
+        <ul class="tx-list">
+          <li class="tx-item">
+            <span class="tx-action">createJar:</span>
+            <a class="tx-link" href="https://chipnet.imaginary.cash/tx/17425f6a8fb08b8ea1d00c1057736aee8647aea1e42ff89be65eea5e6226de06" target="_blank" rel="noopener noreferrer">17425f6a8fb08b8ea1d00c1057736aee8647aea1e42ff89be65eea5e6226de06</a>
+            <span class="tx-detail">(Initial jar funding: 5,000 sats)</span>
+          </li>
+          <li class="tx-item">
+            <span class="tx-action">refund:</span>
+            <a class="tx-link" href="https://chipnet.imaginary.cash/tx/f629fde020d2c38c624431161187bf2694b9b37eccdda5d8db299138891180a1" target="_blank" rel="noopener noreferrer">f629fde020d2c38c624431161187bf2694b9b37eccdda5d8db299138891180a1</a>
+            <span class="tx-detail">(3,000 sats refunded to saver, 2,000 sat fee)</span>
+          </li>
+        </ul>
+      </div>
+
+      <h3 style="font-size: 18px; margin: 24px 0 8px 0; color: #F4EFE6;">Negative Test: Refusal Below Target</h3>
+      <p>
+        To prove enforcement, an invalid release transaction was forged where a jar holding only 2,000 sats attempted to release 10,000 sats to the merchant. Evaluated against the Bitcoin Cash Script VM via libauth:
+      </p>
+      <pre class="refusal-box"><code>COVENANT_REFUSED_AS_EXPECTED: VM rejected input 0: Program failed an OP_VERIFY operation.</code></pre>
+      <p>
+        The covenant rejected the input because the authoritative UTXO value was below target. The transaction failed script evaluation locally and was never broadcast.
+      </p>
+    </section>
+
+    <!-- Reproduce Section -->
+    <section id="reproduce">
+      <h2>How to Reproduce</h2>
+      <p>
+        Reproduce using Node.js / TypeScript against the template with fresh Chipnet UTXOs:
+      </p>
+      <pre class="codeblock"><code>git clone https://github.com/matrixneoaiagent/layaway-jar &amp;&amp; cd layaway-jar
+npm install
+npm run typecheck &amp;&amp; npm test          # 16 tests; engine integration is opt-in
+
+# Use a Chipnet test wallet only — never a funded mainnet wallet:
+export XO_WALLET=/path/to/chipnet-wallet.json
+export XO_DB_PATH=/tmp/opencode/xo_bounty   # optional; omit to sync a fresh .xo-data
+
+# One command runs create → deposit → release → create → refund:
+bash scripts/run-final-chipnet.sh
+
+# Each step prints VM_OK, the txid and the merchant/saver split.
+# Individual commands: npm run create | deposit | release | refund
+# Invitations go to artifacts/ and can be pasted into blaze.xo.cash.</code></pre>
+    </section>
+
+    <!-- Disclosure Section -->
+    <section id="disclosure">
+      <h2>Pre-Existing Work Disclosure</h2>
+      <div class="disclosure-box">
+        <p>
+          The initial concept and draft template file were written on 13 Nov 2026 prior to the BCH BLAZE hackathon kickoff. An immutable archive is publicly preserved:
+        </p>
+        <p>
+          <strong>Archived repository:</strong> <a href="https://github.com/matrixneoaiagent/layaway-jar-prework" target="_blank" rel="noopener noreferrer">https://github.com/matrixneoaiagent/layaway-jar-prework</a><br>
+          <strong>Pre-work SHA-256:</strong> <code class="mono">7c9e7a7eed8920163881167443241695492e1ebc8662331d6e2119128e15ea85</code>
+        </p>
+        <p>
+          The refined template (ID: <code>bc076569ef069e2141b74f21382d50c7ba552ef8182d0076b4ded899c0089a6e</code>), the tests, the end-to-end Chipnet validation run shown above, the documentation, captions, video draft and this landing page were also built on 13 Nov 2026 and are declared as pre-kickoff work. The post-kickoff work (14–22 Nov) is the fresh final Chipnet run, the final video render, repository publication and submission.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div>Built for BCH BLAZE 2026. Chipnet only. No funds are held by this site.</div>
+      <div>AI-assisted build · Chipnet test coins only</div>
+    </footer>
+
+  </div>
+
+  <script>
+    function copyEmberAddress() {
+      var addrText = document.getElementById("emberAddr").innerText.trim();
+      var btn = document.getElementById("copyBtn");
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(addrText).then(function() {
+          btn.innerText = "Copied!";
+          setTimeout(function() { btn.innerText = "Copy"; }, 2000);
+        }).catch(function() {
+          fallbackCopy(addrText, btn);
+        });
+      } else {
+        fallbackCopy(addrText, btn);
+      }
+    }
+
+    function fallbackCopy(text, btn) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        btn.innerText = "Copied!";
+        setTimeout(function() { btn.innerText = "Copy"; }, 2000);
+      } catch (err) {
+        btn.innerText = "Failed";
+      }
+      document.body.removeChild(textArea);
+    }
+  </script>
+</body>
+</html>
