@@ -269,6 +269,20 @@ Record the five txids in the table below after broadcasting. Explorer:
 | create jar B | `PENDING_CREATE_B_TXID` | not broadcast |
 | refund jar B | `PENDING_REFUND_B_TXID` | not broadcast |
 
+### Validation run (pre-kickoff, 2026-11-13T21:22Z, declared)
+
+The final `bc076569…` template and `scripts/run-final-chipnet.sh` were exercised once before
+the kickoff to validate the wrapper. This is disclosed pre-existing work; the submission
+will use a fresh post-kickoff run.
+
+| Step | Txid |
+|------|------|
+| create jar A | `b2d004b467c782cc48b9a8c196ea6cc69b4d6813f7975716ddceb7376461d743` |
+| deposit jar A | `b19c806701845c655394a005072a998da3103e7afe867f9b586286eea082a641` |
+| release jar A | `9568efd8e77c270341406d26c59db33a1d6db694f13d5f0e1452667bc8a2b4d1` |
+| create jar B | `17425f6a8fb08b8ea1d00c1057736aee8647aea1e42ff89be65eea5e6226de06` |
+| refund jar B | `f629fde020d2c38c624431161187bf2694b9b37eccdda5d8db299138891180a1` |
+
 ## Pre-kickoff disclosure
 
 The prototype and its limitations were published before the kickoff:
