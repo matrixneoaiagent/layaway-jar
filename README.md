@@ -361,3 +361,7 @@ Chipnet connection. A lockfile is included for reproducible installs.
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+Explorer screenshots of the validation run (all five transactions, 2 confirmations,
+block 332,213–332,214): `docs/explorer/final/` — the release page shows the P2SH input,
+two P2PKH outputs (merchant + saver) and the 2,000 sat fee at 4.95 sat/B.
