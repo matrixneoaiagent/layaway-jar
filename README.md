@@ -172,14 +172,25 @@ private key or WIF is written to an invitation.
 
 ## Debug tool
 
-1. Open <https://blaze.xo.cash> and switch to **Chipnet**.
-2. **Import the template first**: paste the contents of
-   `fixtures/layaway-jar.template.json` into the template import screen.
-3. Paste an invitation JSON from `artifacts/` into the invitation box.
-4. Click **View invitation**, inspect inputs/outputs and the fee, then **Accept**.
+1. Open <https://blaze.xo.cash>, create/use an account and select **Chipnet**.
+2. **Import the template first**: **Import Template** → paste
+   `fixtures/layaway-jar.template.json` → **Import JSON**. A toast confirms
+   `Template imported: Layaway Jar (<template id>)`.
+3. **Join Invitation** → paste an invitation JSON from `artifacts/` into the
+   **Invitation JSON** box → **View invitation**. The preview shows the action,
+   invitation id, signed commits and inputs; no error banner.
+4. Do not click **Accept invitation** unless you intend to add your signature.
 
-Invitations cannot be resolved before the template is imported. The debug tool
-is a viewer/signer; the covenant rules still apply on-chain.
+Invitations cannot be resolved before the matching template is imported. A
+mismatched template produces:
+`Template not found: import template "<id>" before joining this invitation.`
+The debug tool is a viewer/signer; the covenant rules still apply on-chain.
+
+**Verified on 2026-11-13** against the prototype template: both the `release`
+and `deposit` invitations preview cleanly in the official tool. Screenshots:
+`docs/debug-tool/prototype/` (template import success, release preview, deposit
+preview, mismatched-template error). The final-template screenshots will be
+added to `docs/debug-tool/final/` after the post-kickoff run.
 
 ## Post-kickoff final run
 
