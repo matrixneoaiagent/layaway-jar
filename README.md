@@ -263,11 +263,11 @@ Record the five txids in the table below after broadcasting. Explorer:
 
 | Step | Txid | Status |
 |------|------|--------|
-| create jar A | `PENDING_CREATE_A_TXID` | not broadcast |
-| deposit jar A | `PENDING_DEPOSIT_A_TXID` | not broadcast |
-| release jar A | `PENDING_RELEASE_A_TXID` | not broadcast |
-| create jar B | `PENDING_CREATE_B_TXID` | not broadcast |
-| refund jar B | `PENDING_REFUND_B_TXID` | not broadcast |
+| create jar A | `81a35408158653025ab58b02d87fb4638a3040260d97ae32e7c4d1023fabd48e` | broadcast (Chipnet) |
+| deposit jar A | `52a605d483e689b8d6f03f2142aa93234c7d0632ba407b828ca8543411c5a665` | broadcast (Chipnet) |
+| release jar A | `09e606f0143374e822edca56fe57ef515d9c1dbbc32994baa4ef5cd093718f83` | broadcast (Chipnet) |
+| create jar B | `cce4cb043bc2423c6bf3ddccd72a300e0e2a2d3811b42fa3ba10fa1b660c9f1e` | broadcast (Chipnet) |
+| refund jar B | `f27d12f61c6791eb85bc1580253653c04457ff0732421e889d6691e72dbe6003` | broadcast (Chipnet) |
 
 ### Validation run (pre-kickoff, 2026-11-13T21:22Z, declared)
 
